@@ -28,6 +28,18 @@ public class UsuarioController {
         if(user == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return ResponseEntity.ok(user);
     }
+//Delete
+    @DeleteMapping(value = "/{userID}/deleteUser")
+    private ResponseEntity<List<UserDTO>> deleteUser(@PathVariable int userID){
+         this.usuarioService.deleteByID(userID);
+        return ResponseEntity.ok(null);
+    }
+//Put
+
+    private ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO request, @PathVariable int userID){
+        this.usuarioService.update(request, userID);
+        return ResponseEntity.ok(null);
+    }
 
     @GetMapping(value = "/findAll")
     private ResponseEntity<List<UserDTO>> findAll() {

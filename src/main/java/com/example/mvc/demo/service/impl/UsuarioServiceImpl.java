@@ -3,17 +3,19 @@ package com.example.mvc.demo.service.impl;
 import com.example.mvc.demo.dto.UserDTO;
 import com.example.mvc.demo.service.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
     List<UserDTO> usuarios = new ArrayList<>();
-    long id = 0;
+    int id = 0;
 
     @Override
     public void create(UserDTO user) {
@@ -32,10 +34,23 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .findAny().get();
     }
 
+
+
     @Override
-    public void update(UserDTO user) {
+    public UserDTO deleteByID(Integer id) {
+        this.usuarios.remove(deleteByID(id));
+        return (UserDTO) usuarios;
 
     }
+
+    @Override
+    public void update(UserDTO request, int useriD) {
+        Optional<UserDTO> users = this.usuarios.stream().findAny(useriD);
+        UserDTO user = users.get();
+        user.setName(request.getName());
+        user.setLastname(request.getLastname());
+    }
+
 
     @Override
     public List<UserDTO> findAll() {

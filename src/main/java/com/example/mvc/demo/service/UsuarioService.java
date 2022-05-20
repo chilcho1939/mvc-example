@@ -10,7 +10,10 @@ public interface UsuarioService {
 
     UserDTO getByName(String name);
 
-    void update(UserDTO user);
+    UserDTO deleteByID(Integer id);
+
+    void update(UserDTO user, int useriD);
+
 
     List<UserDTO> findAll();
 }
